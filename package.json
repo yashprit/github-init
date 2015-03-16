@@ -1,0 +1,45 @@
+{
+  "name": "github-init",
+  "version": "0.0.0",
+  "description": "Init and create repo on github, if already created than add remote add",
+  "homepage": "http://yashprit.github.io/",
+  "bugs": {
+    "url": "yashprit/github-init/issues"
+  },
+  "author": {
+    "url": "yashprit.github.io",
+    "name": "Yashprit",
+    "email": "yashprit@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "yashprit/github-init"
+  },
+  "license": "MIT",
+  "files": [
+    "lib/index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "github-init",
+    "git",
+    "github",
+    "cli",
+    "create",
+    "repo",
+    "git-init",
+    "github-init"
+  ],
+  "dependencies": {
+    "http-ssh-agent": "^1.0.4"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "bin": {
+    "github-init": "cli.js"
+  }
+}
