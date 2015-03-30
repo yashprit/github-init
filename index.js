@@ -7,12 +7,14 @@
 
 'use strict';
 
-var gitLocalCreate = require('git-local-create');
-var gitRemoteCreate = require('git-remote-create');
-var gitRemoteAdd = require('git-remote-add');
-var gitRepoUrl = require('git-repo-url');
-var gitFirstCommit = require('git-first-commit');
-var async = require('async');
+var
+  gitLocalCreate = require('git-local-create'),
+  gitRemoteCreate = require('git-remote-create'),
+  gitRemoteAdd = require('git-remote-add'),
+  gitRepoUrl = require('git-repo-url'),
+  gitFirstCommit = require('git-first-commit'),
+  async = require('async'),
+  colors = require('colors');
 
 
 var githubInit = function(config) {
