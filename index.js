@@ -16,45 +16,52 @@ var async = require('async');
 
 
 var githubInit = function(config) {
-  async.parallel([
 
-    function(callback) {
-      gitLocalCreate(function(err, status) {
+  async.auto({
+    local: function(callback) {
+      gitLocalCreate(function(err, isCreated) {
+        console.log(err, isCreated);
         if (err) {
           callback(err);
         } else {
-          callback(null, status);
+          callback(null, isCreated);
         }
       })
     },
-    function(callback) {
-      gitRemoteCreate(config.token, config.reponame, function(err, status) {
+    remote: function(callback) {
+      gitRemoteCreate(config.token, config.reponame, function(err, isAdded) {
+        console.log(err, isAdded);
         if (err) {
           callback(err);
         } else {
-          callback(null, status);
+          callback(null, isAdded);
         }
       });
-    }
-  ], function(err, results) {
-    console.log(err, results);
-    async.series([
-
+    },
+    remoteAdd: ['local', 'remote',
       function(callback, results) {
-        gitRemoteAdd(config.username, config.reponame, function(err, status) {
-          console.log("remoteAdd ", err, status)
+        gitRemoteAdd(config.username, config.reponame, function(err, remoteAdded) {
+          console.log("remoteAdd ", err, remoteAdded)
           if (err) {
             callback(err);
           } else {
-            callback(null, status);
+            callback(null, remoteAdded);
           }
         })
-      },
+      }
+    ],
+    commit: ['remoteAdd',
       function(callback, results) {
         var message = config.message || "intial commit"
-        gitFirstCommit(config.message, function(err, status) {
-          console.log("gitAdd ", err, status)
+        gitFirstCommit(message, function(err, commited) {
+          console.log("gitAdd ", err, commited)
           if (err) {
+            var logMessage = "\n\n" +
+              "One or more opreation failed, please run manually\n".red +
+              "1. git init \n".green +
+              "2. Create repo on github\n".green +
+              "3. git remote add <reponame>\n".green +
+              "4. git add"
             callback(err);
           } else {
             var logMessage = "\n\n" +
@@ -63,8 +70,11 @@ var githubInit = function(config) {
           }
         });
       }
-    ])
+    ]
+  }, function(err, results) {
+    console.log(err, results);
   });
+
 }
 
 module.exports = githubInit;
