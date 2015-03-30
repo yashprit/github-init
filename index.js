@@ -20,7 +20,6 @@ var githubInit = function(config) {
   async.auto({
     local: function(callback) {
       gitLocalCreate(function(err, isCreated) {
-        console.log(err, isCreated);
         if (err) {
           callback(err);
         } else {
@@ -30,7 +29,6 @@ var githubInit = function(config) {
     },
     remote: function(callback) {
       gitRemoteCreate(config.token, config.reponame, function(err, isAdded) {
-        console.log(err, isAdded);
         if (err) {
           callback(err);
         } else {
@@ -41,7 +39,6 @@ var githubInit = function(config) {
     remoteAdd: ['local', 'remote',
       function(callback, results) {
         gitRemoteAdd(config.username, config.reponame, function(err, remoteAdded) {
-          console.log("remoteAdd ", err, remoteAdded)
           if (err) {
             callback(err);
           } else {
@@ -54,25 +51,26 @@ var githubInit = function(config) {
       function(callback, results) {
         var message = config.message || "intial commit"
         gitFirstCommit(message, function(err, commited) {
-          console.log("gitAdd ", err, commited)
           if (err) {
             var logMessage = "\n\n" +
               "One or more opreation failed, please run manually\n".red +
               "1. git init \n".green +
               "2. Create repo on github\n".green +
               "3. git remote add <reponame>\n".green +
-              "4. git add"
-            callback(err);
+              "4. git add --all & git commit -m 'intial commit'\n".green +
+              err
+            callback(logMessage);
           } else {
             var logMessage = "\n\n" +
-              "Git repo is ".blue + gitRepoUrl.https(config.username, config.reponame).green + "\n"
-            callback(null, logMessage)
+              "Git repo is ".blue + gitRepoUrl.https(config.username, config.reponame).green + "\n";
+            results.message = logMessage
+            callback(null, results);
           }
         });
       }
     ]
   }, function(err, results) {
-    console.log(err, results);
+    config.callback(err, results);
   });
 
 }
