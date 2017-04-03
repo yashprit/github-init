@@ -13,9 +13,9 @@ $ npm install --save github-init
 ## Usage
 
 ```js
-var github-init = require('github-init');
+var init = require('github-init');
 
-github-init('Rainbow');
+init('Rainbow');
 ```
 
 ```sh

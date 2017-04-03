@@ -1,6 +1,6 @@
 {
   "name": "github-init",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Init and create repo on github, if already created than add remote add",
   "homepage": "http://yashprit.github.io/",
   "bugs": {
@@ -9,7 +9,7 @@
   "author": {
     "url": "yashprit.github.io",
     "name": "Yashprit",
-    "email": "yashprit@gmail.com"
+    "email": "yashprit@yashprit.com"
   },
   "repository": {
     "type": "git",
@@ -31,17 +31,17 @@
     "github-init"
   ],
   "dependencies": {
-    "async": "^0.9.0",
-    "colors": "^1.0.3",
-    "git-first-commit": "0.0.0-beta",
-    "git-local-create": "0.0.0-beta",
-    "git-remote-add": "0.0.0-beta",
-    "git-remote-create": "0.0.0-beta",
-    "git-repo-url": "0.0.0-beta",
-    "minimist": "^1.1.1"
+    "async": "^2.3.0",
+    "colors": "^1.1.2",
+    "git-first-commit": "0.1.0",
+    "git-local-create": "0.1.0",
+    "git-remote-add": "0.1.0",
+    "git-remote-create": "0.1.0",
+    "git-repo-url": "0.1.0",
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "^3.2.0"
   },
   "scripts": {
     "test": "mocha"
