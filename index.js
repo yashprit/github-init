@@ -67,36 +67,31 @@ var githubInit = function(config) {
     });
   }
 
+  let error = function() {
+    var logMessage = [
+      chalk.red("One or more opreation failed, please run manually"),
+      chalk.green("1. git init"),
+      chalk.green("2. Create repo on github"),
+      chalk.green("3. git remote add <reponame>"),
+      chalk.green("4. git add --all & git commit -m 'intial commit'") + error
+    ];
+
+    logMessage = "\n\n" + logMessage.join("\n");
+    return logMessage;
+  }
+
   let commit = function() {
     return new Promise((resolve, reject) => {
       remoteAdd().then(data => {
         firstCommit().then(result => {
           var logMessage = [chalk.blue("Git repo is"), chalk.green(gitRepoUrl.https(config.username, config.reponame))];
-          data.message = "\n\n" + logMessage.join(" ") + "\n";
-          resolve(data);
+          logMessage = "\n\n" + logMessage.join(" ") + "\n";
+          resolve(logMessage);
         }, error => {
-          var logMessage = [
-            chalk.red("One or more opreation failed, please run manually"),
-            chalk.green("1. git init"),
-            chalk.green("2. Create repo on github"),
-            chalk.green("3. git remote add <reponame>"),
-            chalk.green("4. git add --all & git commit -m 'intial commit'") + error
-          ];
-
-          logMessage = "\n\n" + logMessage.join("\n")
-          reject(logMessage);
+          reject(error());
         });
       }, error => {
-        var logMessage = [
-          chalk.red("One or more opreation failed, please run manually"),
-          chalk.green("1. git init"),
-          chalk.green("2. Create repo on github"),
-          chalk.green("3. git remote add <reponame>"),
-          chalk.green("4. git add --all & git commit -m 'intial commit'") + error
-        ];
-
-        logMessage = "\n\n" + logMessage.join("\n")
-        reject(logMessage);
+        reject(error());
       });
     });
   }
