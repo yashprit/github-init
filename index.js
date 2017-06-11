@@ -40,7 +40,7 @@ var githubInit = function(config) {
 
   let remoteAdd = function() {
     return new Promise((resolve, reject) => {
-      Promise.all([local(), remote()]).then(() => {
+      Promise.all([local(), remote()]).then((result) => {
         gitRemoteAdd(config.username, config.reponame, function(err, remoteAdded) {
           if (err) {
             reject(err);
@@ -69,17 +69,30 @@ var githubInit = function(config) {
 
   let commit = function() {
     return new Promise((resolve, reject) => {
-      Promise.all([remoteAdd(), firstCommit()]).then((data) => {
-        var logMessage = [chalk.blue("Git repo is"), chalk.green(gitRepoUrl.https(config.username, config.reponame))];
-        data.message = "\n\n" + logMessage.join(" ") + "\n";
-        resolve(data);
-      }, (err) => {
+      remoteAdd().then(data => {
+        firstCommit().then(result => {
+          var logMessage = [chalk.blue("Git repo is"), chalk.green(gitRepoUrl.https(config.username, config.reponame))];
+          data.message = "\n\n" + logMessage.join(" ") + "\n";
+          resolve(data);
+        }, error => {
+          var logMessage = [
+            chalk.red("One or more opreation failed, please run manually"),
+            chalk.green("1. git init"),
+            chalk.green("2. Create repo on github"),
+            chalk.green("3. git remote add <reponame>"),
+            chalk.green("4. git add --all & git commit -m 'intial commit'") + error
+          ];
+
+          logMessage = "\n\n" + logMessage.join("\n")
+          reject(logMessage);
+        });
+      }, error => {
         var logMessage = [
           chalk.red("One or more opreation failed, please run manually"),
           chalk.green("1. git init"),
           chalk.green("2. Create repo on github"),
           chalk.green("3. git remote add <reponame>"),
-          chalk.green("4. git add --all & git commit -m 'intial commit'") + err
+          chalk.green("4. git add --all & git commit -m 'intial commit'") + error
         ];
 
         logMessage = "\n\n" + logMessage.join("\n")

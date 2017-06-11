@@ -32,11 +32,11 @@
   ],
   "dependencies": {
     "chalk": "^1.1.3",
-    "git-first-commit": "0.1.0",
-    "git-local-create": "0.1.0",
-    "git-remote-add": "0.1.0",
-    "git-remote-create": "0.1.0",
-    "git-repo-url": "0.1.0",
+    "git-first-commit": "^1.0.0",
+    "git-local-create": "^1.0.1",
+    "git-remote-add": "^0.1.0",
+    "git-remote-create": "^0.1.0",
+    "git-repo-url": "^0.1.0",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
