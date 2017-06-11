@@ -1,6 +1,6 @@
 {
   "name": "github-init",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Init and create repo on github, if already created than add remote add",
   "homepage": "http://yashprit.github.io/",
   "bugs": {
@@ -31,8 +31,7 @@
     "github-init"
   ],
   "dependencies": {
-    "async": "^2.3.0",
-    "colors": "^1.1.2",
+    "chalk": "^1.1.3",
     "git-first-commit": "0.1.0",
     "git-local-create": "0.1.0",
     "git-remote-add": "0.1.0",

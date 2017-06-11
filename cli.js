@@ -12,8 +12,9 @@ var token = args.t;
 githubInit({
   username: username,
   reponame: reponame,
-  token: token,
-  callback: function(err, data) {
-    console.log(err, data);
-  }
+  token: token
+}).then(data => {
+	console.log(data);
+}, err => {
+	console.log(err);
 });
