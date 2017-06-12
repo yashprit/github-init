@@ -67,13 +67,13 @@ var githubInit = function(config) {
     });
   }
 
-  let error = function() {
+  let error = function(err) {
     var logMessage = [
       chalk.red("One or more opreation failed, please run manually"),
       chalk.green("1. git init"),
       chalk.green("2. Create repo on github"),
       chalk.green("3. git remote add <reponame>"),
-      chalk.green("4. git add --all & git commit -m 'intial commit'") + error
+      chalk.green("4. git add --all & git commit -m 'intial commit'") + err
     ];
 
     logMessage = "\n\n" + logMessage.join("\n");
@@ -87,11 +87,11 @@ var githubInit = function(config) {
           var logMessage = [chalk.blue("Git repo is"), chalk.green(gitRepoUrl.https(config.username, config.reponame))];
           logMessage = "\n\n" + logMessage.join(" ") + "\n";
           resolve(logMessage);
-        }, error => {
-          reject(error());
+        }, err => {
+          reject(error(err));
         });
-      }, error => {
-        reject(error());
+      }, err => {
+        reject(error(err));
       });
     });
   }
